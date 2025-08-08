@@ -5,7 +5,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuth } from '@/contexts/AuthContext';
 import type { CreateLeadRequest } from '@/types/leads';
 
 interface AddLeadFormProps {
@@ -14,7 +13,6 @@ interface AddLeadFormProps {
 }
 
 const AddLeadForm: React.FC<AddLeadFormProps> = ({ onSubmit, onCancel }) => {
-  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<CreateLeadRequest>({
     opticianName: '',

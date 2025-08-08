@@ -5,26 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useAuth } from '@/contexts/AuthContext';
 
 const Dashboard: React.FC = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
 
-  const getRoleDisplayName = (role: string) => {
-    const roleNames = {
-      admin: 'Administrator',
-      distributor: 'Distributor',
-      retailer: 'Retailer',
-      sales: 'Sales Staff'
-    };
-    return roleNames[role as keyof typeof roleNames] || role;
-  };
 
   const getDashboardContent = () => {
     switch (user?.role) {
@@ -166,42 +150,20 @@ const Dashboard: React.FC = () => {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-card border-b">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold">Spectacle Lens Management</h1>
-            <p className="text-muted-foreground">
-              Welcome back, {user.displayName || user.email}
-            </p>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="text-right">
-              <div className="text-sm font-medium">{getRoleDisplayName(user.role)}</div>
-              <div className="text-xs text-muted-foreground">{user.email}</div>
-            </div>
-            <Button variant="outline" onClick={handleLogout}>
-              Logout
-            </Button>
-          </div>
-        </div>
-      </header>
+    <div className="space-y-6">
+      {/* Welcome Section */}
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">Welcome back, {user.displayName}</h1>
+        <p className="text-muted-foreground">
+          {user.role === 'admin' && 'Manage your entire organization from here.'}
+          {user.role === 'distributor' && 'Manage your territory and retailers.'}
+          {user.role === 'retailer' && 'Manage your orders and inventory.'}
+          {user.role === 'sales' && 'Track your leads and performance.'}
+        </p>
+      </div>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-          <p className="text-muted-foreground">
-            {user.role === 'admin' && 'Manage your entire organization from here.'}
-            {user.role === 'distributor' && 'Manage your territory and retailers.'}
-            {user.role === 'retailer' && 'Manage your orders and inventory.'}
-            {user.role === 'sales' && 'Track your leads and performance.'}
-          </p>
-        </div>
-
-        {getDashboardContent()}
-      </main>
+      {/* Dashboard Content */}
+      {getDashboardContent()}
     </div>
   );
 };

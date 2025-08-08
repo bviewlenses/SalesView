@@ -4,6 +4,7 @@ import LoginPage from '@/components/LoginPage';
 import Dashboard from '@/components/Dashboard';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import LeadsDashboard from '@/components/leads/LeadsDashboard';
+import AppLayout from '@/components/layout/AppLayout';
 
 function App() {
   return (
@@ -13,26 +14,83 @@ function App() {
           {/* Public routes */}
           <Route path="/login" element={<LoginPage />} />
           
-          {/* Protected routes */}
+          {/* Protected routes with layout */}
           <Route 
             path="/dashboard" 
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <AppLayout>
+                  <Dashboard />
+                </AppLayout>
               </ProtectedRoute>
             } 
           />
           
-          {/* Leads Management - Sales staff and Admin */}
+          {/* Leads Management */}
           <Route 
             path="/leads" 
             element={
               <ProtectedRoute>
-                <div className="min-h-screen bg-background">
-                  <div className="container mx-auto px-4 py-8">
-                    <LeadsDashboard />
+                <AppLayout>
+                  <LeadsDashboard />
+                </AppLayout>
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Placeholder routes for navigation */}
+          <Route 
+            path="/orders" 
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <div className="text-center py-8">
+                    <h2 className="text-2xl font-bold">Order Management</h2>
+                    <p className="text-muted-foreground mt-2">Coming soon...</p>
                   </div>
-                </div>
+                </AppLayout>
+              </ProtectedRoute>
+            } 
+          />
+          
+          <Route 
+            path="/users" 
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <div className="text-center py-8">
+                    <h2 className="text-2xl font-bold">User Management</h2>
+                    <p className="text-muted-foreground mt-2">Coming soon...</p>
+                  </div>
+                </AppLayout>
+              </ProtectedRoute>
+            } 
+          />
+          
+          <Route 
+            path="/reports" 
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <div className="text-center py-8">
+                    <h2 className="text-2xl font-bold">Reports & Analytics</h2>
+                    <p className="text-muted-foreground mt-2">Coming soon...</p>
+                  </div>
+                </AppLayout>
+              </ProtectedRoute>
+            } 
+          />
+          
+          <Route 
+            path="/settings" 
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <div className="text-center py-8">
+                    <h2 className="text-2xl font-bold">Settings</h2>
+                    <p className="text-muted-foreground mt-2">Coming soon...</p>
+                  </div>
+                </AppLayout>
               </ProtectedRoute>
             } 
           />
