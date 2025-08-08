@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
 
 const Dashboard: React.FC = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -36,6 +38,17 @@ const Dashboard: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <Button className="w-full">Manage Users</Button>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Lead Management</CardTitle>
+                <CardDescription>View and manage all leads</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button className="w-full" onClick={() => navigate('/leads')}>
+                  View All Leads
+                </Button>
               </CardContent>
             </Card>
             <Card>
@@ -113,10 +126,17 @@ const Dashboard: React.FC = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Lead Management</CardTitle>
-                <CardDescription>Manage your leads</CardDescription>
+                <CardDescription>Manage your leads and visits</CardDescription>
               </CardHeader>
               <CardContent>
-                <Button className="w-full">Manage Leads</Button>
+                <div className="space-y-2">
+                  <Button className="w-full" onClick={() => navigate('/leads')}>
+                    Manage Leads
+                  </Button>
+                  <Button variant="outline" className="w-full">
+                    Schedule Visits
+                  </Button>
+                </div>
               </CardContent>
             </Card>
             <Card>

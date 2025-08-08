@@ -3,6 +3,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import LoginPage from '@/components/LoginPage';
 import Dashboard from '@/components/Dashboard';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import LeadsDashboard from '@/components/leads/LeadsDashboard';
 
 function App() {
   return (
@@ -18,6 +19,20 @@ function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Leads Management - Sales staff and Admin */}
+          <Route 
+            path="/leads" 
+            element={
+              <ProtectedRoute>
+                <div className="min-h-screen bg-background">
+                  <div className="container mx-auto px-4 py-8">
+                    <LeadsDashboard />
+                  </div>
+                </div>
               </ProtectedRoute>
             } 
           />
